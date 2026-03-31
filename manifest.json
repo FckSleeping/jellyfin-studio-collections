@@ -1,0 +1,21 @@
+[
+  {
+    "category": "UI Enhancements",
+    "guid": "a3f2c1d4-5e6b-7890-abcd-ef1234567890",
+    "imageUrl": "",
+    "name": "StudioCollections",
+    "description": "Affiche une section par studio sur la page d'accueil de Jellyfin, avec logos et effet hover (backdrop + miniatures au survol).",
+    "overview": "StudioCollections ajoute une rangée horizontale scrollable sur l'accueil Jellyfin, regroupant vos médias par studio de production. Chaque carte affiche le logo du studio ; au survol, le backdrop s'anime et les miniatures des titres récents apparaissent.",
+    "owner": "TonPseudoGitHub",
+    "versions": [
+      {
+        "version": "1.0.0.0",
+        "changelog": "- Version initiale\n- Section studios scrollable sur la page d'accueil\n- Logos des studios avec effet hover backdrop\n- API REST /StudioCollections/studios\n- Page de configuration dans le dashboard admin",
+        "targetAbi": "10.9.0.0",
+        "sourceUrl": "https://github.com/TonPseudoGitHub/jellyfin-studio-collections/releases/download/v1.0.0/Jellyfin.Plugin.StudioCollections_1.0.0.0.zip",
+        "checksum": "REMPLACER_PAR_MD5_DU_ZIP",
+        "timestamp": "2026-03-31T00:00:00Z"
+      }
+    ]
+  }
+]
