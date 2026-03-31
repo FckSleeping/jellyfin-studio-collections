@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>Jellyfin.Plugin.StudioCollections</AssemblyName>
+    <RootNamespace>Jellyfin.Plugin.StudioCollections</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>enable</Nullable>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- Ressources embarquées -->
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\configPage.html" />
+    <EmbeddedResource Include="Web\studioCollections.js" />
+  </ItemGroup>
+
+  <!-- Dépendances Jellyfin (fournies au runtime, donc PrivateAssets=All) -->
+  <ItemGroup>
+    <PackageReference Include="Jellyfin.Model" Version="10.9.0" PrivateAssets="All" />
+    <PackageReference Include="Jellyfin.Controller" Version="10.9.0" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

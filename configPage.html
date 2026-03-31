@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>StudioCollections - Configuration</title>
+</head>
+<body>
+<div id="StudioCollectionsConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+    <div data-role="content">
+        <div class="content-primary">
+
+            <div class="verticalSection">
+                <div class="sectionTitleContainer flex align-items-center">
+                    <h2 class="sectionTitle">🎬 StudioCollections</h2>
+                </div>
+                <p>Affiche une section par studio dans l'interface Jellyfin, avec logos et effet hover.</p>
+            </div>
+
+            <form class="StudioCollectionsConfigForm">
+
+                <!-- Activation -->
+                <div class="verticalSection">
+                    <h3 class="sectionTitle">Affichage</h3>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input type="checkbox" is="emby-checkbox" id="InjectOnHomepage" />
+                            <span>Injecter la section sur la page d'accueil</span>
+                        </label>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="SectionTitle">Titre de la section</label>
+                        <input type="text" is="emby-input" id="SectionTitle" />
+                    </div>
+                </div>
+
+                <!-- Filtrage -->
+                <div class="verticalSection">
+                    <h3 class="sectionTitle">Filtres</h3>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="MaxStudios">Nombre maximum de studios</label>
+                        <input type="number" is="emby-input" id="MaxStudios" min="1" max="100" />
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="MinItemsPerStudio">Nombre minimum de films/séries par studio</label>
+                        <input type="number" is="emby-input" id="MinItemsPerStudio" min="1" max="50" />
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="MediaTypes">Types de médias (Movies, Series, ou les deux séparés par une virgule)</label>
+                        <input type="text" is="emby-input" id="MediaTypes" placeholder="Movies,Series" />
+                    </div>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input type="checkbox" is="emby-checkbox" id="OnlyWithLogo" />
+                            <span>Afficher uniquement les studios ayant un logo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Effet hover -->
+                <div class="verticalSection">
+                    <h3 class="sectionTitle">Effet Hover</h3>
+                    <div class="checkboxContainer checkboxContainer-withDescription">
+                        <label class="emby-checkbox-label">
+                            <input type="checkbox" is="emby-checkbox" id="EnableHoverEffect" />
+                            <span>Activer l'effet hover (affichage du backdrop/intro au survol)</span>
+                        </label>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="HoverAnimationDuration">Durée de l'animation hover (ms)</label>
+                        <input type="number" is="emby-input" id="HoverAnimationDuration" min="100" max="2000" step="50" />
+                    </div>
+                </div>
+
+                <!-- Boutons -->
+                <div class="verticalSection">
+                    <button is="emby-button" type="submit" class="raised button-submit block">
+                        <span>💾 Enregistrer</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    (function () {
+        var pluginId = "a3f2c1d4-5e6b-7890-abcd-ef1234567890";
+
+        ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+            document.getElementById('InjectOnHomepage').checked = config.InjectOnHomepage;
+            document.getElementById('SectionTitle').value = config.SectionTitle;
+            document.getElementById('MaxStudios').value = config.MaxStudios;
+            document.getElementById('MinItemsPerStudio').value = config.MinItemsPerStudio;
+            document.getElementById('MediaTypes').value = config.MediaTypes;
+            document.getElementById('OnlyWithLogo').checked = config.OnlyWithLogo;
+            document.getElementById('EnableHoverEffect').checked = config.EnableHoverEffect;
+            document.getElementById('HoverAnimationDuration').value = config.HoverAnimationDuration;
+        });
+
+        document.querySelector('.StudioCollectionsConfigForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var config = {
+                InjectOnHomepage: document.getElementById('InjectOnHomepage').checked,
+                SectionTitle: document.getElementById('SectionTitle').value,
+                MaxStudios: parseInt(document.getElementById('MaxStudios').value, 10),
+                MinItemsPerStudio: parseInt(document.getElementById('MinItemsPerStudio').value, 10),
+                MediaTypes: document.getElementById('MediaTypes').value,
+                OnlyWithLogo: document.getElementById('OnlyWithLogo').checked,
+                EnableHoverEffect: document.getElementById('EnableHoverEffect').checked,
+                HoverAnimationDuration: parseInt(document.getElementById('HoverAnimationDuration').value, 10)
+            };
+
+            ApiClient.updatePluginConfiguration(pluginId, config).then(function () {
+                Dashboard.processPluginConfigurationUpdateResult();
+            });
+        });
+    })();
+    </script>
+</div>
+</body>
+</html>
